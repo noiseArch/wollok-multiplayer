@@ -1,0 +1,33 @@
+import wollok.game.*
+import connection.connHandler
+
+class Player {
+	var property id
+	var property position
+	
+	method image() = "wollok.png"
+	
+	method moverse(direccion) {
+		connHandler.send((("update_state|" + id) + "|") + direccion)
+		self.position(direccion)
+	}
+}
+
+const connectedPlayers = []
+
+program Game {
+	game.title("Pepita")
+	game.height(10)
+	game.width(10)
+	const playerId = 0.randomUpTo(200000000).truncate(0)
+	const player = new Player(id = playerId, position = game.center())
+	connHandler.connect("ws://localhost:8080", playerId)
+	game.start()
+	connectedPlayers.add(player)
+	game.addVisualCharacter(player)
+	
+	keyboard.up().onPressDo({ player.moverse(player.position().up(1)) })
+	keyboard.down().onPressDo({ player.moverse(player.position().down(1)) })
+	keyboard.left().onPressDo({ player.moverse(player.position().left(1)) })
+	keyboard.right().onPressDo({ player.moverse(player.position().right(1)) })
+}

@@ -1,0 +1,14 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "resourceFolder": "assets",
+  "wollokVersion": "4.0.0",
+  "scripts": {
+    "start": "wollok run 'mainExample.pepitaGame' --skipValidations --port 4200"
+  },
+  "author": "MatiasValtolina",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
